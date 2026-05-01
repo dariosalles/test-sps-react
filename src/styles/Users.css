@@ -260,6 +260,12 @@ table tbody tr:hover {
   transform: scale(1.05);
 }
 
+.btn-editar.disabled-admin {
+  opacity: 0.5;
+  cursor: not-allowed;
+  background-color: #999;
+}
+
 .btn-deletar.disabled-admin {
   opacity: 0.5;
   cursor: not-allowed;

@@ -3,7 +3,8 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "./pages/Home";
 import Users from "./pages/Users";
 import Login from "./pages/SignIn";
-import UserEdit, { userLoader } from "./pages/UserEdit";
+import UserNew from "./pages/UserNew";
+import UserEdit from "./pages/UserEdit";
 import ProtectedRoute from "./routes/PrivateRoute";
 
 const router = createBrowserRouter([
@@ -28,13 +29,20 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: "/users/:userId",
+    path: "/users/novo",
+    element: (
+      <ProtectedRoute>
+        <UserNew />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: "/users/:id/edit",
     element: (
       <ProtectedRoute>
         <UserEdit />
       </ProtectedRoute>
     ),
-    loader: userLoader,
   },
 ]);
 

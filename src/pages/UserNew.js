@@ -1,14 +1,12 @@
-import { useState, useEffect } from "react";
-import { useNavigate, useParams } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import UserService from "../services/UserService";
 import "../styles/Users.css";
 
-function UserEdit() {
+function UserNew() {
   const navigate = useNavigate();
-  const { id } = useParams();
-
   const [loading, setLoading] = useState(false);
   const [mensagem, setMensagem] = useState(null);
   const [formData, setFormData] = useState({
@@ -17,29 +15,6 @@ function UserEdit() {
     type: "user",
     password: "",
   });
-
-  // Carregar usuário ao montar
-  useEffect(() => {
-    carregarUsuario();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [id]);
-
-  const carregarUsuario = async () => {
-    setLoading(true);
-    try {
-      const usuario = await UserService.obter(id);
-      setFormData({
-        nome: usuario.nome,
-        email: usuario.email,
-        type: usuario.type,
-        password: usuario.password || "",
-      });
-    } catch (erro) {
-      mostrarMensagem(erro.message, "erro");
-    } finally {
-      setLoading(false);
-    }
-  };
 
   const mostrarMensagem = (texto, tipo) => {
     setMensagem({ texto, tipo });
@@ -59,8 +34,8 @@ function UserEdit() {
     setLoading(true);
 
     try {
-      await UserService.atualizar(id, formData);
-      mostrarMensagem("Usuário atualizado com sucesso!", "sucesso");
+      await UserService.criar(formData);
+      mostrarMensagem("Usuário criado com sucesso!", "sucesso");
 
       setTimeout(() => {
         navigate("/users");
@@ -96,7 +71,7 @@ function UserEdit() {
             )}
 
             <form className="form-card" onSubmit={handleSubmit}>
-              <h2>Editar Usuário</h2>
+              <h2>Novo Usuário</h2>
 
               <div className="form-row">
                 <div className="form-group">
@@ -148,8 +123,9 @@ function UserEdit() {
                     name="password"
                     value={formData.password}
                     onChange={handleInputChange}
+                    required
                     disabled={loading}
-                    placeholder="Deixar em branco para não mudar"
+                    placeholder="Digite uma senha segura"
                   />
                 </div>
               </div>
@@ -160,7 +136,7 @@ function UserEdit() {
                   className="btn-salvar"
                   disabled={loading}
                 >
-                  {loading ? "Salvando..." : "Atualizar Usuário"}
+                  {loading ? "Criando..." : "Criar Usuário"}
                 </button>
                 <button 
                   type="button" 
@@ -181,4 +157,4 @@ function UserEdit() {
   );
 }
 
-export default UserEdit;
+export default UserNew;

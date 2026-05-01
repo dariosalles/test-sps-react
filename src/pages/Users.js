@@ -11,21 +11,12 @@ function Users() {
   const [usuarios, setUsuarios] = useState([]);
   const [loading, setLoading] = useState(false);
   const [mensagem, setMensagem] = useState(null);
-  const [mostraFormulario, setMostraFormulario] = useState(false);
-  const [editandoId, setEditandoId] = useState(null);
   const [modal, setModal] = useState({
     isOpen: false,
     title: "",
     message: "",
     type: "info",
     action: null,
-  });
-
-  const [formData, setFormData] = useState({
-    nome: "",
-    email: "",
-    type: "user",
-    password: "",
   });
 
   // Carregar usuários ao montar
@@ -71,58 +62,8 @@ function Users() {
     });
   };
 
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const limparFormulario = () => {
-    setFormData({
-      nome: "",
-      email: "",
-      type: "user",
-      password: "",
-    });
-    setEditandoId(null);
-    setMostraFormulario(false);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-
-    try {
-      if (editandoId) {
-        // Atualizar usuário
-        await UserService.atualizar(editandoId, formData);
-        mostrarMensagem("Usuário atualizado com sucesso!", "sucesso");
-      } else {
-        // Criar novo usuário
-        await UserService.criar(formData);
-        mostrarMensagem("Usuário criado com sucesso!", "sucesso");
-      }
-
-      limparFormulario();
-      carregarUsuarios();
-    } catch (erro) {
-      mostrarMensagem(erro.message, "erro");
-    } finally {
-      setLoading(false);
-    }
-  };
-
   const handleEditar = (usuario) => {
-    setFormData({
-      nome: usuario.nome,
-      email: usuario.email,
-      type: usuario.type,
-      password: usuario.password,
-    });
-    setEditandoId(usuario.id);
-    setMostraFormulario(true);
+    navigate(`/users/${usuario.id}/edit`);
   };
 
   const handleDeletar = (id) => {
@@ -181,15 +122,13 @@ function Users() {
       <main className="user-content">
       <div className="users-header">
         <h1>Gerenciar Usuários</h1>
-        {!mostraFormulario && (
-          <button 
-            className="btn-novo-usuario"
-            onClick={() => setMostraFormulario(true)}
-            disabled={loading}
-          >
-            + Novo Usuário
-          </button>
-        )}
+        <button 
+          className="btn-novo-usuario"
+          onClick={() => navigate("/users/novo")}
+          disabled={loading}
+        >
+          + Novo Usuário
+        </button>
       </div>
 
       <div className="users-main">
@@ -199,91 +138,10 @@ function Users() {
           </div>
         )}
 
-        {mostraFormulario && (
-          <form className="form-card" onSubmit={handleSubmit}>
-            <h2>{editandoId ? "Editar Usuário" : "Novo Usuário"}</h2>
-
-            <div className="form-row">
-              <div className="form-group">
-                <label htmlFor="nome">Nome</label>
-                <input
-                  type="text"
-                  id="nome"
-                  name="nome"
-                  value={formData.nome}
-                  onChange={handleInputChange}
-                  required
-                  disabled={loading}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="email">E-mail</label>
-                <input
-                  type="email"
-                  id="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  required
-                  disabled={loading}
-                />
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="type">Tipo</label>
-                <select
-                  id="type"
-                  name="type"
-                  value={formData.type}
-                  onChange={handleInputChange}
-                  disabled={loading}
-                >
-                  <option value="user">Usuário</option>
-                  <option value="admin">Administrador</option>
-                  <option value="gerente">Gerente</option>
-                </select>
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="password">Senha</label>
-                <input
-                  type="password"
-                  id="password"
-                  name="password"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  required={!editandoId}
-                  disabled={loading}
-                  placeholder={editandoId ? "Deixar em branco para não mudar" : ""}
-                />
-              </div>
-            </div>
-
-            <div className="form-actions">
-              <button 
-                type="submit" 
-                className="btn-salvar"
-                disabled={loading}
-              >
-                {loading ? "Salvando..." : editandoId ? "Atualizar" : "Criar"}
-              </button>
-              <button 
-                type="button" 
-                className="btn-cancelar"
-                onClick={limparFormulario}
-                disabled={loading}
-              >
-                Cancelar
-              </button>
-            </div>
-          </form>
-        )}
-
         <div className="users-table-card">
           <h2>Lista de Usuários</h2>
 
-          {loading && !mostraFormulario ? (
+          {loading ? (
             <p style={{ textAlign: "center", color: "#999" }}>Carregando...</p>
           ) : usuarios.length === 0 ? (
             <div className="empty-state">
@@ -312,9 +170,10 @@ function Users() {
                     <td>
                       <div className="table-actions">
                         <button
-                          className="btn-editar"
+                          className={`btn-editar ${usuario.email === "admin@spsgroup.com.br" ? "disabled-admin" : ""}`}
                           onClick={() => handleEditar(usuario)}
-                          disabled={loading}
+                          disabled={loading || usuario.email === "admin@spsgroup.com.br"}
+                          title={usuario.email === "admin@spsgroup.com.br" ? "Não é permitido editar o usuário administrador" : ""}
                         >
                           Editar
                         </button>
