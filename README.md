@@ -1,30 +1,168 @@
-----------------------------------
-ESPANHOL
-----------------------------------
+# Test SPS React - Frontend
 
-## PRUEBA SPS REACT
+Aplicação frontend desenvolvida em React para gerenciamento de usuários do sistema SPS.
 
-- Crear un CRUD de usuarios
+## 📋 Pré-requisitos
 
-## Reglas
+- **Node.js** versão 14.0 ou superior
+- **npm** ou **yarn** instalado
+- **Git** (opcional)
 
-- Crear la página de inicio de sesión (signIn) para autenticar al usuario (usar el usuario previamente registrado para validar).
-- Se puede utilizar cualquier tipo de almacenamiento para guardar el token.
-- Solo será posible registrar y/o visualizar usuarios si el usuario está autenticado.
-- Consumir la API creada anteriormente (test-sps-server).
+## 🚀 Instalação
 
+### 1. Clonar ou baixar o projeto
 
-----------------------------------
-PORTUGUÊS
-----------------------------------
+```bash
+git clone <url-do-repositorio>
+cd test-sps-react
+```
 
-# SPS REACT TEST
+### 2. Instalar as dependências
 
-- Criar um CRUD de usuários
+```bash
+npm install
+```
 
-# Regras
+Ou com yarn:
 
-- Criar a página de signIn para fazer a autenticação do usuário (Usar o usuário previamente cadastrado para validar)
-- Pode usar qualquer tipo de storage para guardar o token
-- Só será possível cadastrar e/ou visualizar os usuários se estiver autenticado
-- Chamar a API que foi criada anteriormente (test-sps-server)
+```bash
+yarn install
+```
+
+### 3. Configurar variáveis de ambiente
+
+Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
+
+```env
+REACT_APP_SERVER_URL=http://localhost:3001
+```
+
+**Nota:** Certifique-se de que a URL do servidor corresponde ao endereço onde o backend está rodando.
+
+## 🔧 Executar o projeto
+
+### Desenvolvimento
+
+```bash
+npm start
+```
+
+A aplicação abrirá automaticamente em `http://localhost:3000`
+
+Ou com yarn:
+
+```bash
+yarn start
+```
+
+### Build para produção
+
+```bash
+npm run build
+```
+
+Ou com yarn:
+
+```bash
+yarn build
+```
+
+### Executar testes
+
+```bash
+npm test
+```
+
+## 📁 Estrutura do Projeto
+
+```
+test-sps-react/
+├── public/
+│   ├── index.html          # Arquivo HTML principal
+│   ├── manifest.json       # Configuração PWA
+│   └── robots.txt
+├── src/
+│   ├── components/         # Componentes reutilizáveis
+│   │   ├── Footer.js
+│   │   ├── Header.js
+│   │   └── Modal.js
+│   ├── context/            # Context API para autenticação
+│   │   └── AuthContext.js
+│   ├── helpers/            # Funções utilitárias
+│   │   └── storageHelpers.js
+│   ├── pages/              # Páginas da aplicação
+│   │   ├── Dashboard.js
+│   │   ├── Home.js
+│   │   ├── SignIn.js
+│   │   ├── UserEdit.js
+│   │   └── Users.js
+│   ├── routes/             # Configuração de rotas
+│   │   └── PrivateRoute.js
+│   ├── services/           # Serviços de API
+│   │   └── UserService.js
+│   ├── styles/             # Estilos CSS
+│   │   ├── Dashboard.css
+│   │   ├── Footer.css
+│   │   ├── Header.css
+│   │   ├── Modal.css
+│   │   ├── SignIn.css
+│   │   └── Users.css
+│   ├── App.js              # Componente raiz
+│   ├── index.js            # Entry point
+│   └── routes.js           # Definição das rotas
+├── package.json
+└── README.md
+```
+
+## 🔐 Autenticação
+
+A aplicação utiliza **JWT (JSON Web Tokens)** para autenticação:
+
+- Token é armazenado no `localStorage`
+- Token é enviado no header `Authorization: Bearer <token>`
+- Sessão expira em **24 horas**
+- Existe uma rota privada que protege páginas autenticadas
+
+## 📝 Credenciais de Teste
+
+```
+Email: admin@spsgroup.com.br
+Senha: 1234
+```
+
+## 🎯 Funcionalidades Principais
+
+- ✅ Login com autenticação JWT
+- ✅ Listar usuários
+- ✅ Criar novo usuário
+- ✅ Editar usuário existente
+- ✅ Deletar usuário (com proteção para admin)
+- ✅ Cache local de usuários
+- ✅ Rotas protegidas
+- ✅ Dashboard com informações do usuário
+
+## 🛠️ Tecnologias Utilizadas
+
+- **React 18.2.0** - Framework JavaScript
+- **React Router DOM 6.22.3** - Roteamento
+- **Axios** - Cliente HTTP
+- **JWT Decode 4.0.0** - Decodificação de JWT
+- **CSS3** - Estilos
+
+## 🐛 Troubleshooting
+
+### Erro: "Cannot GET /"
+- Certifique-se de que o servidor backend está rodando
+- Verifique se a URL do servidor está correta no `.env`
+
+### Erro: "Token expirado"
+- Faça login novamente
+- O token expira em 24 horas
+
+### Erro: "CORS"
+- Verifique se o backend tem CORS habilitado
+- Confirme a URL do servidor no `.env`
+
+## 📞 Suporte
+
+Para dúvidas ou problemas, entre em contato com o time de desenvolvimento.
