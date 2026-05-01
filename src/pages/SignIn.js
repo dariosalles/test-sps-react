@@ -32,7 +32,7 @@ export default function Login() {
       <form className="login-form" onSubmit={handleSubmit}>
         <div className="logo-section">
           <img src={spsLogo} alt="SPS Group Logo" className="company-logo" />
-        </div>spsLogo
+        </div>
         <h1>Login</h1>
 
         <div className="form-group">
