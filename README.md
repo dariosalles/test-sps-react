@@ -29,16 +29,6 @@ Ou com yarn:
 yarn install
 ```
 
-### 3. Configurar variáveis de ambiente
-
-Crie um arquivo `.env` na raiz do projeto com as seguintes variáveis:
-
-```env
-REACT_APP_SERVER_URL=http://localhost:3001
-```
-
-**Nota:** Certifique-se de que a URL do servidor corresponde ao endereço onde o backend está rodando.
-
 ## 🔧 Executar o projeto
 
 ### Desenvolvimento
