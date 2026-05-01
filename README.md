@@ -163,6 +163,3 @@ Senha: 1234
 - Verifique se o backend tem CORS habilitado
 - Confirme a URL do servidor no `.env`
 
-## 📞 Suporte
-
-Para dúvidas ou problemas, entre em contato com o time de desenvolvimento.
