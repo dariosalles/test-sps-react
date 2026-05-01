@@ -1,9 +1,8 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import spsLogo from "../assets/SPSConstultoria_007.png";
 import "../styles/SignIn.css";
-
-const SPS_LOGO = "/SPSConstultoria_007.png";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -32,8 +31,8 @@ export default function Login() {
     <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit}>
         <div className="logo-section">
-          <img src={SPS_LOGO} alt="SPS Group Logo" className="company-logo" />
-        </div>
+          <img src={spsLogo} alt="SPS Group Logo" className="company-logo" />
+        </div>spsLogo
         <h1>Login</h1>
 
         <div className="form-group">

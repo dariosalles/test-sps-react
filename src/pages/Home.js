@@ -2,9 +2,8 @@ import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import spsLogo from "../assets/SPSConstultoria_007.png";
 import "../styles/Home.css";
-
-const SPS_LOGO = "/SPSConstultoria_007.png";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -23,7 +22,7 @@ export default function Home() {
           </div>
 
           <div className="logo-card">
-            <img src={SPS_LOGO} alt="SPS Group Logo" className="home-logo" />
+            <img src={spsLogo} alt="SPS Group Logo" className="home-logo" />
           </div>
         </div>
 
