@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import logo from "../assets/SPSConstultoria_007.png";
 import "../styles/Header.css";
 
 export default function Header({ showHomeBtn = true }) {
@@ -10,15 +11,15 @@ export default function Header({ showHomeBtn = true }) {
     <header className="home-header">
       <div className="header-content">
         <div className="header-left">
-          {showHomeBtn && (
+          <img src={logo} alt="SPS Consultoria" className="logo" />
+          <p>Painel de Controle</p>
+        </div>
+        <div className="header-right">
+           {showHomeBtn && (
             <button className="home-btn" onClick={() => navigate("/")} title="Voltar ao Home">
               🏠
             </button>
           )}
-          <h2>SPS GROUP</h2>
-          <p>Painel de Controle</p>
-        </div>
-        <div className="header-right">
           <span className="user-name">{user?.nome}</span>
           <button className="logout-btn" onClick={logout}>
             Sair
