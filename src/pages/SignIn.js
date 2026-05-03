@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
+import Modal from "../components/Modal";
 import spsLogo from "../assets/SPSConstultoria_007.png";
 import "../styles/SignIn.css";
 
@@ -8,6 +9,7 @@ export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -16,12 +18,11 @@ export default function Login() {
     setLoading(true);
 
     const success = await login(email, password);
-    console.log("✅ Login resultado:", success);
 
     if (success) {
       navigate("/");
     } else {
-      alert("Credenciais inválidas");
+      setIsModalOpen(true);
     }
     
     setLoading(false);
@@ -61,6 +62,15 @@ export default function Login() {
           {loading ? "Entrando..." : "Entrar"}
         </button>
       </form>
+
+      <Modal
+        isOpen={isModalOpen}
+        title="Erro ao fazer login"
+        message="Credenciais inválidas"
+        type="error"
+        onCancel={() => setIsModalOpen(false)}
+        cancelText="Fechar"
+      />
     </div>
   );
 }
