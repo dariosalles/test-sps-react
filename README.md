@@ -13,7 +13,7 @@ Aplicação frontend desenvolvida em React para gerenciamento de usuários do si
 ### 1. Clonar ou baixar o projeto
 
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/dariosalles/test-sps-react.git
 cd test-sps-react
 ```
 
